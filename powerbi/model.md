@@ -6,7 +6,7 @@
 | fact_deliveries | one ball | match_id+inning+over_no+ball_no | 60 (2024 final) |
 | dim_team | franchise (current name) | team_key | 15 |
 | dim_venue | venue (standardised) | venue_key | 36 |
-| dim_player | batter / bowler | player_key | sample players |
+| dim_player | batter / bowler | player_key | 209 (players appearing in 2024) |
 | dim_season | season | season | 17 |
 
 ## Relationships (single direction, dim → fact)
@@ -19,5 +19,5 @@
 
 ## Notes
 - Flags are 0/1 integers, so SUM gives counts.
-- `phase` takes the values powerplay, middle and death. Sort it by a calculated column (1/2/3).
+- `phase` takes the values `1 Powerplay (1-6)`, `2 Middle (7-15)` and `3 Death (16-20)`. The numeric prefix makes them sort alphabetically.
 - The CSVs here are sample-sized. For the full model, run `python run_pipeline.py --source full` and point Power BI at `data/clean_full/` instead.
