@@ -1,0 +1,29 @@
+-- Power BI measures for da-learn-13 (tables: fact_matches, fact_deliveries, dim_team, dim_venue, dim_player, dim_season)
+
+Matches = COUNTROWS ( fact_matches )
+Decided Matches = CALCULATE ( [Matches], fact_matches[no_result_flag] = 0 )
+Toss Winner Win % = DIVIDE ( SUM ( fact_matches[toss_winner_won_flag] ), [Decided Matches] )
+Bat First Win % = DIVIDE ( SUM ( fact_matches[bat_first_won_flag] ), [Decided Matches] )
+Field Choice % = DIVIDE ( CALCULATE ( [Matches], fact_matches[toss_decision] = "field" ), [Matches] )
+Avg First Innings Score = AVERAGE ( fact_matches[first_innings_runs] )
+
+-- Team wins use the inactive relationship fact_matches[winner_key] -> dim_team[team_key]
+Team Wins = CALCULATE ( [Matches], USERELATIONSHIP ( fact_matches[winner_key], dim_team[team_key] ) )
+Team Matches =
+    CALCULATE ( [Decided Matches], USERELATIONSHIP ( fact_matches[team1_key], dim_team[team_key] ) )
+  + CALCULATE ( [Decided Matches], USERELATIONSHIP ( fact_matches[team2_key], dim_team[team_key] ) )
+Team Win % = DIVIDE ( [Team Wins], [Team Matches] )
+
+-- Ball-level (exclude super overs)
+Runs = CALCULATE ( SUM ( fact_deliveries[total_runs] ), fact_deliveries[super_over_flag] = 0 )
+Legal Balls = CALCULATE ( SUM ( fact_deliveries[legal_ball_flag] ), fact_deliveries[super_over_flag] = 0 )
+Run Rate = DIVIDE ( [Runs], [Legal Balls] / 6 )
+Batter Runs = CALCULATE ( SUM ( fact_deliveries[batsman_runs] ), fact_deliveries[super_over_flag] = 0 )
+Balls Faced = CALCULATE ( SUM ( fact_deliveries[ball_faced_flag] ), fact_deliveries[super_over_flag] = 0 )
+Strike Rate = DIVIDE ( [Batter Runs], [Balls Faced] ) * 100
+Sixes = CALCULATE ( SUM ( fact_deliveries[six_flag] ), fact_deliveries[super_over_flag] = 0 )
+Fours = CALCULATE ( SUM ( fact_deliveries[four_flag] ), fact_deliveries[super_over_flag] = 0 )
+Bowler Wickets = CALCULATE ( SUM ( fact_deliveries[bowler_wicket_flag] ), fact_deliveries[super_over_flag] = 0 )
+Bowler Runs Conceded = CALCULATE ( SUM ( fact_deliveries[bowler_runs] ), fact_deliveries[super_over_flag] = 0 )
+Economy = DIVIDE ( [Bowler Runs Conceded], [Legal Balls] / 6 )
+Wicket % per Ball = DIVIDE ( SUM ( fact_deliveries[is_wicket] ), [Legal Balls] )
