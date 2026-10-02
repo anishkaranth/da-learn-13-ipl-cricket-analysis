@@ -1,0 +1,73 @@
+{
+ "snapshot": "headline KPIs + run config",
+ "project": "da-learn-13-ipl-cricket-analysis",
+ "source_mode": "full",
+ "config": {
+  "engine": "duckdb (local, full data) + Databricks serverless SQL",
+  "sql_dialect": "Spark/Databricks SQL + DuckDB shims (sql/00)",
+  "team_names": "franchise renames mapped to current name",
+  "player_stats": "super overs excluded",
+  "bowler_wickets": "bowled, caught, lbw, stumped, caught and bowled, hit wicket",
+  "sample_rule": "data/raw = 2024 Final (match row + deliveries of overs 1-5 of both innings)"
+ },
+ "headline": {
+  "matches": 1095,
+  "deliveries": 260920,
+  "seasons": 17,
+  "teams": 15,
+  "venues": 36,
+  "players": 732,
+  "total_runs": 347470,
+  "total_wickets": 12923,
+  "total_sixes": 13036,
+  "avg_first_innings_score": 166.1,
+  "run_rate": 8.3,
+  "toss_winner_win_pct": 50.83,
+  "bat_first_win_pct": 45.87,
+  "toss_field_choice_pct": 64.29
+ },
+ "top": {
+  "top5_win_pct": [
+   {"team_name": "Chennai Super Kings", "matches": 238, "wins": 138, "win_pct": 58.23, "titles": 5},
+   {"team_name": "Mumbai Indians", "matches": 261, "wins": 144, "win_pct": 55.17, "titles": 5},
+   {"team_name": "Kolkata Knight Riders", "matches": 251, "wins": 131, "win_pct": 52.19, "titles": 3},
+   {"team_name": "Rajasthan Royals", "matches": 221, "wins": 112, "win_pct": 51.14, "titles": 1},
+   {"team_name": "Royal Challengers Bengaluru", "matches": 255, "wins": 123, "win_pct": 48.81, "titles": 0}
+  ],
+  "toss_impact": [
+   {"toss_decision": "bat", "matches": 390, "toss_winner_won": 177, "toss_winner_win_pct": 45.38, "bat_first_win_pct": 45.38},
+   {"toss_decision": "field", "matches": 700, "toss_winner_won": 377, "toss_winner_win_pct": 53.86, "bat_first_win_pct": 46.14}
+  ],
+  "top5_batters": [
+   {"batter": "V Kohli", "runs": 8004, "strike_rate": 131.97, "batting_avg": 38.67},
+   {"batter": "S Dhawan", "runs": 6769, "strike_rate": 127.14, "batting_avg": 35.26},
+   {"batter": "RG Sharma", "runs": 6628, "strike_rate": 131.14, "batting_avg": 29.72},
+   {"batter": "DA Warner", "runs": 6565, "strike_rate": 139.77, "batting_avg": 40.52},
+   {"batter": "SK Raina", "runs": 5528, "strike_rate": 136.73, "batting_avg": 32.52}
+  ],
+  "top5_bowlers": [
+   {"bowler": "YS Chahal", "wickets": 205, "economy": 7.84, "bowling_avg": 22.45},
+   {"bowler": "PP Chawla", "wickets": 192, "economy": 7.96, "bowling_avg": 26.6},
+   {"bowler": "DJ Bravo", "wickets": 183, "economy": 8.38, "bowling_avg": 23.83},
+   {"bowler": "B Kumar", "wickets": 181, "economy": 7.56, "bowling_avg": 27.23},
+   {"bowler": "SP Narine", "wickets": 180, "economy": 6.73, "bowling_avg": 25.39}
+  ],
+  "phase_scoring": [
+   {"phase": "1 Powerplay (1-6)", "run_rate": 7.85, "wicket_pct_per_ball": 3.99},
+   {"phase": "2 Middle (7-15)", "run_rate": 7.79, "wicket_pct_per_ball": 4.31},
+   {"phase": "3 Death (16-20)", "run_rate": 9.96, "wicket_pct_per_ball": 8.46}
+  ]
+ },
+ "row_counts": {
+  "matches": 1095,
+  "deliveries": 260920,
+  "fact_matches": 1095,
+  "fact_deliveries": 260920,
+  "dim_team": 15,
+  "dim_venue": 36,
+  "dim_player": 732,
+  "dim_season": 17
+ },
+ "assertions_passed": 11,
+ "assertions_total": 11
+}
