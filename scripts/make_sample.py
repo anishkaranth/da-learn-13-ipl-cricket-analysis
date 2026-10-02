@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the git-sized raw sample in data/raw/ from data/raw_full/ (deterministic, no randomness).
 
-Rule: the 2024 Final (KKR v SRH, Chennai) - its match row plus every delivery of that match.
+Rule: the 2024 Final (KKR v SRH, Chennai) - its match row plus the deliveries of overs 1-5 of both innings.
 Rows are copied verbatim except that the space padding of the deliveries mirror is stripped (keeps git small;
 sql/02 trims anyway, so results are identical)."""
 import csv, pathlib
@@ -21,6 +21,6 @@ with open(FULL / "deliveries_2008-2024.csv", newline="", encoding="utf-8") as f,
     w = csv.writer(g, lineterminator="\n")
     for i, r in enumerate(csv.reader(f)):
         r = [c.strip() for c in r]
-        if i == 0 or r[0] in ids:
+        if i == 0 or (r[0] in ids and int(r[4]) < 5):
             w.writerow(r); n += i > 0
 print(f"matches {len(keep)}  deliveries {n}")
